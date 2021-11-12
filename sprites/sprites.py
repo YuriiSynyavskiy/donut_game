@@ -42,41 +42,45 @@ class Background(pygame.sprite.Sprite):
 
 
 class BigDonut(pygame.sprite.Sprite):
-    def __init__(self, image_file, location):
+    def __init__(self, image_file, screen):
         pygame.sprite.Sprite.__init__(self)  # call Sprite initializer
         self.image = pygame.image.load(image_file)
         self.rect = self.image.get_rect()
-        self.rect.left, self.rect.top = location
+        self.rect.left = (screen.width/2) - (int(self.rect.right/2))   # Move object to center
+        self.rect.top = screen.height*0.3  # Move object down on 50% from screen's size
     def __str__(self):
         return 'BigDonut'
 
 
 class BigDonutShadow(pygame.sprite.Sprite):
-    def __init__(self, image_file, location):
+    def __init__(self, image_file, screen):
         pygame.sprite.Sprite.__init__(self)  # call Sprite initializer
         self.image = pygame.image.load(image_file)
         self.rect = self.image.get_rect()
-        self.rect.left, self.rect.top = location
+        self.rect.left = (screen.width/2) - (int(self.rect.right/2)) + 50   # Move object to center
+        self.rect.top = screen.height*0.25  # Move object down on 50% from screen's size
     def __str__(self):
         return 'BigDonutShadow'
 
 
 class PlayButton(pygame.sprite.Sprite):
-    def __init__(self, image_file, location):
-        pygame.sprite.Sprite.__init__(self)  # call Sprite initializer
+    def __init__(self, image_file, screen):
+        pygame.sprite.Sprite.__init__(self)                             # call Sprite initializer
         self.image = pygame.image.load(image_file)
         self.rect = self.image.get_rect()
-        self.rect.left, self.rect.top = location
+        self.rect.left = (screen.width/2) - (int(self.rect.right/2))    # Move object to center
+        self.rect.top = screen.height * 0.6                            # Move object down on 40% from screen's size
     def __str__(self):
         return 'PlayButton'
 
 
 class HowToPlayButton(pygame.sprite.Sprite):
-    def __init__(self, image_file, location):
-        pygame.sprite.Sprite.__init__(self)  # call Sprite initializer
+    def __init__(self, image_file, screen):
+        pygame.sprite.Sprite.__init__(self)                             # call Sprite initializer
         self.image = pygame.image.load(image_file)
         self.rect = self.image.get_rect()
-        self.rect.left, self.rect.top = location
+        self.rect.left = (screen.width/2) - (int(self.rect.right/2))    # Move object to center
+        self.rect.top = screen.height * 0.8                            # Move object down on 60% from screen's size
     def __str__(self):
         return 'HowToPlayButton'
 
