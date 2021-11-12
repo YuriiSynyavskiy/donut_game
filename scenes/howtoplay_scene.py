@@ -3,8 +3,8 @@ from scenes.basic_scene import SceneBase
 
 
 class HowToPlayScene(SceneBase):
-    def __init__(self):
-        SceneBase.__init__(self)
+    def __init__(self, screen):
+        SceneBase.__init__(self, screen)
         self.SpriteGroupUnactive = pygame.sprite.Group(self.background) 
         self.SpriteGroupActive = pygame.sprite.Group(self.sound_button)
         self.SpritePointer = pygame.sprite.Group(self.PointerImg)
