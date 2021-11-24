@@ -15,7 +15,6 @@ class HowToPlayScene(SceneBase):
         pass
     
     def Render(self, screen):
-        
         position_of_mouse = pygame.mouse.get_pos()
         self.PointerImg.Update(position_of_mouse)
         self.SpriteGroupUnactive.draw(screen)

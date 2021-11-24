@@ -1,53 +1,39 @@
 import pygame
 import random
 import constants
-from sprites.sprites import Cursor, Background, SoundButton, Donut
+from sprites.sprites import Cursor, Background, SoundButton
+from utils.utils import button_pressed_name
 
 
 class SceneBase:
     def __init__(self, screen):
         self.screen = screen
-        self.DonutGroupArray = [[None, None, None, None, None, None], 
-                                [None, None, None, None, None, None],
-                                [None, None, None, None, None, None],
-                                [None, None, None, None, None, None],
-                                [None, None, None, None, None, None],
-                                [None, None, None, None, None, None]]
-        self.ARRAY_OF_DONUTS = [constants.red_donut_image_path,
-                       constants.blue_donut_image_path,
-                       constants.green_donut_image_path,
-                       constants.sblue_donut_image_path,
-                       constants.yellow_donut_image_path,
-                       constants.pink_donut_image_path]
         self.next = self
         self.PointerImg = Cursor(constants.cursor_image_path, [0, 0])
         self.background = Background(constants.background_image_path, [0, 0], self.screen)
         self.sound_button = SoundButton(self.screen)
-
-        self.DonutGroup = pygame.sprite.Group()
-        startX = 200
-        startY = 300
-        i = 5; j = 0
-        while i>=0:
-            while j<=5:
-                rand_index  = random.randint(0, 5)
-                temp_donut = Donut(self.ARRAY_OF_DONUTS[rand_index], [startX, startY], i, j, rand_index)
-                self.DonutGroup.add(temp_donut)
-                self.DonutGroupArray[i][j]=temp_donut
-                startX+=100
-                j+=1
-            i-=1; j=0
-            startX= 200
-            startY-=100
+        self.SpriteGroupUnactive = pygame.sprite.Group(self.background) 
+        self.SpriteGroupActive = pygame.sprite.Group(self.sound_button)
+        self.SpritePointer = pygame.sprite.Group(self.PointerImg)
 
     def ProcessInput(self, events, pressed_keys):
-        print("uh-oh, you didn't override this in the child class")
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                button_pressed = button_pressed_name(self.SpriteGroupActive, pos[0]-10, pos[1]-50)
+                if button_pressed:
+                    if button_pressed == 'SoundButton':
+                        self.sound_button.changeSound()
 
     def Update(self):
         print("uh-oh, you didn't override this in the child class")
 
     def Render(self, screen):
-        print("uh-oh, you didn't override this in the child class")
+        position_of_mouse = pygame.mouse.get_pos()
+        self.PointerImg.Update(position_of_mouse)
+        self.SpriteGroupUnactive.draw(screen)
+        self.SpriteGroupActive.draw(screen)
+        self.SpritePointer.draw(screen)
 
     def SwitchToScene(self, next_scene):
         self.next = next_scene
