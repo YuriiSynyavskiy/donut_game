@@ -119,6 +119,7 @@ class ReturnButton(pygame.sprite.Sprite):
         return 'ReturnButton'
 
 class Donut(pygame.sprite.Sprite):
+
     def __init__(self, image_file, location, i, j, type_of_donut):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(image_file)
@@ -130,12 +131,16 @@ class Donut(pygame.sprite.Sprite):
         self.pos_y_in_matrix = j
         self.color_index = type_of_donut
         self.free_space_under = 0
-    def update(self):
-        self.rect.top += 10
+
+    def update(self, step=10):
+        self.rect.top += step
+
     def __str__(self):
         return 'Donut'
+
     def move(self, change_of_x = 0, change_of_y = 0):
         self.rect.top+=change_of_y
         self.rect.left+=change_of_x
+
     def current_pos(self):
         return (self.rect.left, self.rect.top)

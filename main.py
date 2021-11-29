@@ -14,6 +14,7 @@ def run_game(fps):
     pygame.mouse.set_visible(False)
 
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    #screen = pygame.display.set_mode((0, 0))
     screen_params = Screen(pygame.display.Info().current_w, pygame.display.Info().current_h)
 
 

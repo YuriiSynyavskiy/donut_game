@@ -10,8 +10,8 @@ def button_pressed_name(SpriteGroupActive, x, y):
 
 def donut_pressed(DonutGroup, position):
     clicked_sprites = [s for s in DonutGroup if s.rect.collidepoint((position[0],position[1]))]
-    for i in clicked_sprites:
-        return i
+    if len(clicked_sprites):
+        return clicked_sprites[0]
     return 0
 
 
@@ -19,10 +19,16 @@ def get_indexes_of_donut(tempDonut):
     return (tempDonut.pos_x_in_matrix, tempDonut.pos_y_in_matrix)
 
 
-def is_in_bounds(indexX, indexY):
-    if indexX < 0 or indexX > 6 or indexY < 0 or indexY > 6:
-        return False
-    return True
+def close_to_active_donut(active_donut, potential_donut):
+    if active_donut.pos_y_in_matrix == potential_donut.pos_y_in_matrix:
+        if active_donut.pos_x_in_matrix + 1 == potential_donut.pos_x_in_matrix \
+            or active_donut.pos_x_in_matrix - 1 == potential_donut.pos_x_in_matrix:
+            return True
+    elif active_donut.pos_x_in_matrix == potential_donut.pos_x_in_matrix:
+        if active_donut.pos_y_in_matrix + 1 == potential_donut.pos_y_in_matrix \
+            or active_donut.pos_y_in_matrix - 1 == potential_donut.pos_y_in_matrix:
+            return True
+    return False
 
 
 def column_of_matrix_by_index(matrix, i):
